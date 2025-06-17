@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net48</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+		<PlatformTarget>x86</PlatformTarget>
+		<RuntimeIdentifier>win-x86</RuntimeIdentifier>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Reference Include="Microsoft.Office.Interop.Excel">
+			<HintPath>lib\Interop\Microsoft.Office.Interop.Excel.dll</HintPath>
+			<Private>true</Private>
+		</Reference>
+		<Reference Include="MicrosoftOfficeCore" Version="15.0.0">
+			<HintPath>lib\Office.dll</HintPath>
+			<Private>true</Private>
+		</Reference>
+		<Reference Include="Microsoft.VisualBasic">
+			<HintPath>lib\Microsoft.VisualBasic.dll</HintPath>
+			<Private>true</Private>
+		</Reference>
+		<Reference Include="Microsoft.Vbe.Interop.Forms">
+			<HintPath>lib\Microsoft.Vbe.Interop.Forms.dll</HintPath>
+			<Private>true</Private>
+		</Reference>
+		<Reference Include="Newtonsoft.Json">
+			<HintPath>lib\Newtonsoft.Json.dll</HintPath>
+			<Private>true</Private>
+		</Reference>
+	</ItemGroup>
+</Project>
