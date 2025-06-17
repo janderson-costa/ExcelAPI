@@ -32,3 +32,4 @@ D:\_dev\Survey\2.0\ExcelAPI\obj\Debug\net48\win-x86\ExcelAPI.csproj.CoreCompileI
 D:\_dev\Survey\2.0\ExcelAPI\obj\Debug\net48\win-x86\ExcelAPI.csproj.Up2Date
 D:\_dev\Survey\2.0\ExcelAPI\obj\Debug\net48\win-x86\ExcelAPI.exe
 D:\_dev\Survey\2.0\ExcelAPI\obj\Debug\net48\win-x86\ExcelAPI.pdb
+D:\_dev\Survey\2.0\ExcelAPI\obj\Debug\net48\win-x86\ExcelAPI.sourcelink.json
