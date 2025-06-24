@@ -8,15 +8,12 @@ using VBE = Microsoft.Vbe.Interop.Forms;
 // using Office = Microsoft.Office.Core;
 // using VB = Microsoft.VisualBasic;
 using Microsoft.Office.Core;
-using ExcelAPI.Models;
 
 namespace ExcelAPI.Services {
 	public class Excel {
-		private readonly _Excel.Application _excel = (_Excel.Application)Marshal.GetActiveObject("Excel.Application");
+		private _Excel.Application _excel = (_Excel.Application)Marshal.GetActiveObject("Excel.Application");
 
 		public Excel(string filePath) {
-			filePath = filePath.Replace("/", "\\").Trim();
-
 			_Excel.Workbook target = null;
 
 			foreach (_Excel.Workbook workbook in _excel.Workbooks) {
@@ -31,21 +28,17 @@ namespace ExcelAPI.Services {
 			if (target == null)
 				return;
 
-			try {
-				// Ativa a janela do Excel no z-order
-				_Excel.Window window = target.Windows[1];
-				window.Activate();
-			}
-			catch (Exception ex) {
-				Console.WriteLine(ex.Message);
-			}
+
+			// Ativa a janela do Excel no z-order
+			_Excel.Window window = target.Windows[1];
+			window.Activate();
 		}
 
 		// não usado
 		public void OpenWorkbook(string filePath) {
 			// Abre o arquivo especificado no Excel.
 
-			filePath = filePath.Replace("/", "\\").Trim();
+			var result = new Models.Result();
 
 			// if (Process.GetProcessesByName("EXCEL").Length > 0) {
 			// 	// Tenta anexar a uma instância já aberta
@@ -74,9 +67,11 @@ namespace ExcelAPI.Services {
 			// }
 		}
 
-		public string SaveWorkbook() {
+		public Models.Result SaveWorkbook() {
 			// Salva o arquivo do Excel.
 			// Obs.: Retorna falha caso haja alguma janela de dialogo aberta no Excel.
+
+			var result = new Models.Result();
 
 			try {
 				_excel.DisplayAlerts = false;
@@ -85,18 +80,47 @@ namespace ExcelAPI.Services {
 
 				workbook.Saved = true;
 				workbook.Save();
-
-				return "";
+				result.Data = true;
 			}
 			catch (Exception ex) {
-				return ex.Message;
+				result.Error = ex.Message;
 			}
 			finally {
 				try {
 					_excel.DisplayAlerts = true;
 				}
-				catch (Exception) { }
+				catch (Exception ex) {
+					result.Error = ex.Message;
+				}
 			}
+
+			return result;
+		}
+
+		public Models.Result CloseWorkbook() {
+			// Fecha o arquivo do Excel.
+
+			var result = new Models.Result();
+
+			try {
+				_excel.ActiveWorkbook.Close();
+				result.Data = true;
+			}
+			catch (Exception ex) {
+				result.Error = ex.Message;
+			}
+			finally {
+				// Libera objetos COM
+				Marshal.ReleaseComObject(_excel);
+				_excel = null;
+
+				GC.Collect();
+				GC.WaitForPendingFinalizers();
+				GC.Collect();
+				GC.WaitForPendingFinalizers();
+			}
+
+			return result;
 		}
 
 		public bool IsActiveWorkbook(string requestedFilePath) {
@@ -108,14 +132,14 @@ namespace ExcelAPI.Services {
 			return workbookPath.EndsWith(path);
 		}
 
-		public List<Sheet> GetSheets() {
+		public List<Models.Sheet> GetSheets() {
 			if (_excel == null || _excel.ActiveWorkbook == null) return null;
 
-			var sheets = new List<Sheet>();
+			var sheets = new List<Models.Sheet>();
 
 			for (int i = 1; i <= _excel.Sheets.Count; i++) {
 				var workSheet = (_Excel.Worksheet)_excel.Sheets[i];
-				var sheet = new Sheet();
+				var sheet = new Models.Sheet();
 
 				// Adiciona o ID da planilha como propriedade customizada
 				string id = null;
