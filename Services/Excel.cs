@@ -97,13 +97,13 @@ namespace ExcelAPI.Services {
 			return result;
 		}
 
-		public Models.Result CloseWorkbook() {
+		public Models.Result CloseWorkbook(bool saveChanges = false) {
 			// Fecha o arquivo do Excel.
 
 			var result = new Models.Result();
 
 			try {
-				_excel.ActiveWorkbook.Close();
+				_excel.ActiveWorkbook.Close(saveChanges);
 				result.Data = true;
 			}
 			catch (Exception ex) {

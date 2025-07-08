@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\_dev\\Survey\\2.0\\ExcelAPI\\ExcelAPI.csproj",
+      "projectUniqueName": "D:\\_dev\\Survey\\2.0\\Survey-Desktop\\ExcelAPI\\ExcelAPI.csproj",
       "projectName": "ExcelAPI",
-      "projectPath": "D:\\_dev\\Survey\\2.0\\ExcelAPI\\ExcelAPI.csproj",
+      "projectPath": "D:\\_dev\\Survey\\2.0\\Survey-Desktop\\ExcelAPI\\ExcelAPI.csproj",
       "packagesPath": "C:\\Users\\janderson\\.nuget\\packages\\",
-      "outputPath": "D:\\_dev\\Survey\\2.0\\ExcelAPI\\obj\\",
+      "outputPath": "D:\\_dev\\Survey\\2.0\\Survey-Desktop\\ExcelAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\janderson\\AppData\\Roaming\\NuGet\\NuGet.Config"

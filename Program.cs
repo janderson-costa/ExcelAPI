@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace ExcelAPI {
 	class Program {
@@ -25,6 +26,7 @@ namespace ExcelAPI {
 				// Retorna os nomes das planilhas do arquivo
 				if (_method == "GetSheets") {
 					var sheets = _excel.GetSheets();
+
 
 					_result.Data = sheets;
 				}
@@ -77,7 +79,13 @@ namespace ExcelAPI {
 				_result.Error = ex.Message;
 			}
 			finally {
-				var json = JsonConvert.SerializeObject(_result);
+				// Converte a primeira letra de cada proriedade do objeto para minúsculo
+				var settings = new JsonSerializerSettings {
+					ContractResolver = new DefaultContractResolver {
+						NamingStrategy = new CamelCaseNamingStrategy()
+					}
+				};
+				var json = JsonConvert.SerializeObject(_result, settings);
 
 				Console.WriteLine(json);
 				// Console.ReadKey();
